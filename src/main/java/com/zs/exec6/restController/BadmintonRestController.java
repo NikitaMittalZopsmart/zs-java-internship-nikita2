@@ -21,21 +21,34 @@ import java.sql.SQLException;
  */
 @RestController
 public class BadmintonRestController {
-    /**
-     * This is to
-     */
-
     @Autowired
     private BadmintonService badmintonService;
 
+
+    /**
+     * Throwing Exception.
+     * @throws MyCustomException
+     */
     @RequestMapping("/")
     public void message() throws MyCustomException {
         throw new MyCustomException();
     }
+
+    /**
+     * Throwing the exception when the url for finding latest streak is wrong.
+     * @throws MyCustomException
+     */
     @RequestMapping("/badminton/latestStreak")
     public void message2() throws MyCustomException {
         throw new MyCustomException();
     }
+
+    /**
+     * This is fetching the latest streak for a paricular user.
+     * @param userId User ID
+     * @return Value of latest streak.
+     * @throws SQLException
+     */
     @GetMapping("/badminton/latestStreak/{userId}")
     public int getLatestStreak(@PathVariable("userId") String userId) throws SQLException {
 
@@ -43,6 +56,12 @@ public class BadmintonRestController {
 
     }
 
+    /**
+     * Inserting data into badminton table.
+     * @param badminton Badminton Object.
+     * @return Response
+     * @throws SQLException
+     */
     @PostMapping("/badmintoncreate")
     public ResponseEntity<String> create(@RequestBody Badminton badminton) throws SQLException {
         badmintonService.create(badminton);
